@@ -52,12 +52,12 @@ public class DesignTacoController {
     }
 
     @ModelAttribute(name = "taco")
-    public Taco taco(){
+    public Taco taco(){ // creates empty Taco Object
         return new Taco();
     }
 
     @GetMapping
-    public String showDesignForm(){
+    public String showDesignForm(){ //handles GET request for /design
         return "design";
     }
 
