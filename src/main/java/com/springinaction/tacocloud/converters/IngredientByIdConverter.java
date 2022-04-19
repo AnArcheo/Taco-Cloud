@@ -21,8 +21,8 @@ public class IngredientByIdConverter implements Converter<String, Ingredient> {
         ingredientMap.put("LETC", new Ingredient("LETC", "Lettuce", Ingredient.Type.VEGGIES));
         ingredientMap.put("CHED", new Ingredient("CHED", "Cheddar", Ingredient.Type.CHEESE));
         ingredientMap.put("JACK", new Ingredient("JACK", "Monterey Jack", Ingredient.Type.CHEESE));
-        ingredientMap.put("SLSA", new Ingredient("SLSA", "Salsa", Ingredient.Type.SAUSE));
-        ingredientMap.put("SRSR", new Ingredient("SRSR", "Sour Cream", Ingredient.Type.SAUSE));
+        ingredientMap.put("SLSA", new Ingredient("SLSA", "Salsa", Ingredient.Type.SAUCE));
+        ingredientMap.put("SRSR", new Ingredient("SRSR", "Sour Cream", Ingredient.Type.SAUCE));
     }
 
     @Override
