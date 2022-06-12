@@ -2,9 +2,9 @@ package com.springinaction.tacocloud.domains;
 
 import lombok.Data;
 import org.hibernate.validator.constraints.CreditCardNumber;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
+import javax.persistence.*;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
@@ -14,7 +14,8 @@ import java.util.Date;
 import java.util.List;
 
 @Data
-@Table // Optional -by default object is mapped to a table based on the domain class name -> here: "Taco_Order",
+@Entity
+//@Table // Optional -by default object is mapped to a table based on the domain class name -> here: "Taco_Order",
         // this can be left out or left without parameters; if prefer to map to a different table name, then specify
         // new table name, like: @Table("Taco_Cloud_Order")
 public class TacoOrder implements Serializable {
@@ -22,6 +23,7 @@ public class TacoOrder implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id // designates the id property as being the identity for a TacoOrder
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private Date placedAt;
     //delivery info
@@ -43,6 +45,7 @@ public class TacoOrder implements Serializable {
     @Digits(integer=3, fraction = 0, message = "Invalid CVV")
     private String ccCVV;
 
+    @OneToMany(cascade = CascadeType.ALL) // if order is deleted then all related tacos are also deleted
     private List<Taco> tacos = new ArrayList<>();
 
     public void addTaco(Taco taco){
