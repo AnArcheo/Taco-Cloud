@@ -6,6 +6,6 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.Optional;
 
 public interface OrderRepository extends CrudRepository<TacoOrder, Long> {
-
-    TacoOrder save(TacoOrder order);
+// Not needed - extends CrudRepository
+//    TacoOrder save(TacoOrder order);
 }
