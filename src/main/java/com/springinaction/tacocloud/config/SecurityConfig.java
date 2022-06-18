@@ -43,6 +43,10 @@ public class SecurityConfig {
                         .loginPage("/login")
                         .defaultSuccessUrl("/design", true) //force user to design page after successful login
                 .and()
+                    .logout()
+                        .logoutSuccessUrl("/")
+
+                .and()
                 .build();
     }
 }
