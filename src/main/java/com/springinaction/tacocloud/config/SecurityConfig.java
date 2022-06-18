@@ -6,9 +6,11 @@ import com.springinaction.tacocloud.repositories.UserRepository;
 import com.springinaction.tacocloud.services.UserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 public class SecurityConfig {
@@ -27,5 +29,20 @@ public class SecurityConfig {
             }
             throw new UsernameNotFoundException("User '"+ username + "' not found");
         };
+    }
+
+    // Ensure that only requests for /design and /orders are available to authenticated users
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception{
+        //returns an object ExpressionUrlAuthorizationConfigurer.ExpressionInterceptUrlRegistry
+        return httpSecurity.authorizeRequests()
+                .antMatchers("/design", "/orders").access("hasRole('USER')")
+                .antMatchers("/", "/**").access("permitAll()")
+                .and()
+                    .formLogin()
+                        .loginPage("/login")
+                        .defaultSuccessUrl("/design", true) //force user to design page after successful login
+                .and()
+                .build();
     }
 }
